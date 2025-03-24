@@ -37,7 +37,7 @@ export default function Cours() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Cours" />
-            <Table>
+            <Table className="m-auto">
                 <TableCaption>A list of your recent invoices.</TableCaption>
                 <TableHeader>
                     <TableRow>
