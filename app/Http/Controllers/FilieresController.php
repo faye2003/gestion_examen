@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Filieres;
+use Inertia\Inertia;
 
 class FilieresController extends Controller
 {
     public function index()
     {
+        // dd($request->all());
         return Inertia::render('filiere', [
-            'filieres' => Filieres::all(),
+            "filieres" => Filieres::all()
         ]);
     }
 
@@ -21,6 +23,6 @@ class FilieresController extends Controller
             'description' => ['nullable', 'max:255']
         ]));
 
-        return to_route('filiere');
+        return to_route('events.filiere');
     }
 }

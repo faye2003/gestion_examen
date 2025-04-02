@@ -1,6 +1,6 @@
 import AppLayout from "@/layouts/app-layout";
-import { type BreadcrumbItem } from "@/types";
-import { Head } from "@inertiajs/react";
+import { type BreadcrumbItem, type SharedData } from '@/types';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -30,10 +30,22 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+type filiereForm = {
+    designation : string,
+    description : string, 
+}
+
 export default function Filiere() {
+    // const { auth } = usePage<SharedData>().props;
+
+    // const {data, setData, patch, errors, } = useForm<Required<filiereForm>>({
+    //     designation : '',
+    //     description : '',
+    // });
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Filieres" />
+            <Head title="Filiere" />
             <Table>
                 <TableCaption>Liste des Filières</TableCaption>
                 <TableHeader>
@@ -47,7 +59,7 @@ export default function Filiere() {
                 <TableBody>
                     <TableRow>
                     <TableCell className="font-medium">0001</TableCell>
-                    <TableCell>MICDA</TableCell>
+                    <TableCell></TableCell>
                     <TableCell>Master en Informatique Conception et Développement d'Applications</TableCell>
                     <TableCell className="text-right">edit</TableCell>
                     </TableRow>
