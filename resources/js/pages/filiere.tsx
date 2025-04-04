@@ -34,10 +34,14 @@ export default function Filiere({filiere}:any) {
   
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Filiere" />
+            <Head title="Filiere"/>
             {/* Liste filières */}
-            <Table>
-                <TableCaption>Liste des Filières</TableCaption>
+            <Table 
+                className={(
+                    "mx-auto max-w-lg items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
+                )}
+            >
+                <TableCaption className="caption-top">Liste des Filières</TableCaption>
                 <TableHeader>
                     <TableRow>
                     <TableHead className="w-[100px]">#</TableHead>

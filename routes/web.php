@@ -7,6 +7,9 @@ use App\Http\Controllers\FilieresController;
 Route::get('/', function () {
     return Inertia::render('auth/login');
 })->name('home');
+Route::get('/home', function () {
+    return Inertia::render('events/home');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -27,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     
     Route::get("/filiere", [FilieresController::class, 'index'])->name("index");
+
 
     Route::prefix("filiere")->group(function(){
         // Route::inertia("/filiere", "filiere");
