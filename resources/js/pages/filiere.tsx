@@ -1,6 +1,6 @@
 import AppLayout from "@/layouts/app-layout";
-import { type BreadcrumbItem } from "@/types";
-import { Head } from "@inertiajs/react";
+import { type BreadcrumbItem, type SharedData } from '@/types';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -30,12 +30,18 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Filiere() {
+export default function Filiere({filiere}:any) {
+  
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Filieres" />
-            <Table>
-                <TableCaption>Liste des Filières</TableCaption>
+            <Head title="Filiere"/>
+            {/* Liste filières */}
+            <Table 
+                className={(
+                    "mx-auto max-w-lg items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
+                )}
+            >
+                <TableCaption className="caption-top">Liste des Filières</TableCaption>
                 <TableHeader>
                     <TableRow>
                     <TableHead className="w-[100px]">#</TableHead>
@@ -45,13 +51,16 @@ export default function Filiere() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow>
-                    <TableCell className="font-medium">0001</TableCell>
-                    <TableCell>MICDA</TableCell>
-                    <TableCell>Master en Informatique Conception et Développement d'Applications</TableCell>
-                    <TableCell className="text-right">edit</TableCell>
+                {filiere.map((item:any) => (
+                    <TableRow key={item.id}>
+                        <TableCell className="font-medium">{item.id}</TableCell>
+                        <TableCell>{item.designation}</TableCell>
+                        <TableCell>{item.description}</TableCell>
+                        <TableCell className="text-right">edit</TableCell>
                     </TableRow>
+                ))}
                 </TableBody>
+
             </Table>
             <Pagination>
                 <PaginationContent>
