@@ -20,19 +20,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('examen');
     Route::get('filiere', function () {
         return Inertia::render('filiere');
-    })->name('filiere.index');
+    })->name('filiere');
     Route::get('etudiant', function () {
         return Inertia::render('etudiant');
     })->name('etudiant');
 
+    
+    Route::get("/filiere", [FilieresController::class, 'index'])->name("index");
+
     Route::prefix("filiere")->group(function(){
         // Route::inertia("/filiere", "filiere");
-        // Route::get("/filiere", [FilieresController::class, 'index'])->name("index");
-        Route::get("/create", [FiliereController::class, 'create'])->name("filieres.create");
-        Route::post('/', [FiliereController::class, "store"])->name('filieres.store');
-        Route::get('/{filiere}', [FiliereController::class, "edit"])->name("filieres.edit");
-        Route::put('/{id}',[FiliereController::class, "update"])->name("filieres.update");
-        Route::delete('/{filiere}',[FiliereController::class, "destroy"])->name("filieres.destroy");
+        Route::get("/filiere", [FilieresController::class, 'index'])->name("index");
+        // Route::get("/create", [FiliereController::class, 'create'])->name("filieres.create");
+        // Route::post('/', [FiliereController::class, "store"])->name('filieres.store');
+        // Route::get('/{filiere}', [FiliereController::class, "edit"])->name("filieres.edit");
+        // Route::put('/{id}',[FiliereController::class, "update"])->name("filieres.update");
+        // Route::delete('/{filiere}',[FiliereController::class, "destroy"])->name("filieres.destroy");
     });
 });
 

@@ -30,6 +30,12 @@ export interface SharedData {
     [key: string]: unknown;
 }
 
+export interface Filiere {
+    id: number;
+    designation: string;
+    edscription: string;
+}
+
 export interface User {
     id: number;
     name: string;

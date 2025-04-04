@@ -30,22 +30,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-type filiereForm = {
-    designation : string,
-    description : string, 
-}
-
-export default function Filiere() {
-    // const { auth } = usePage<SharedData>().props;
-
-    // const {data, setData, patch, errors, } = useForm<Required<filiereForm>>({
-    //     designation : '',
-    //     description : '',
-    // });
-
+export default function Filiere({filiere}:any) {
+  
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Filiere" />
+            {/* Liste filières */}
             <Table>
                 <TableCaption>Liste des Filières</TableCaption>
                 <TableHeader>
@@ -57,13 +47,16 @@ export default function Filiere() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow>
-                    <TableCell className="font-medium">0001</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell>Master en Informatique Conception et Développement d'Applications</TableCell>
-                    <TableCell className="text-right">edit</TableCell>
+                {filiere.map((item:any) => (
+                    <TableRow key={item.id}>
+                        <TableCell className="font-medium">{item.id}</TableCell>
+                        <TableCell>{item.designation}</TableCell>
+                        <TableCell>{item.description}</TableCell>
+                        <TableCell className="text-right">edit</TableCell>
                     </TableRow>
+                ))}
                 </TableBody>
+
             </Table>
             <Pagination>
                 <PaginationContent>
