@@ -17,14 +17,11 @@ class CoursController extends Controller
         ]);
         // return view("cours.index", compact("courses"));
     }
-    public function create(){
-        return view("cours.create");
-    }
     public function store(Request $request){
         // Validation des données
         $validate_data = $request->validate([
-            "designation" =>'required',
-            "description"=>"required",
+            'designation' => ['required', 'unique:cours', 'max:100'],
+            'description' => ['nullable', 'max:255']
         ]);
         Cours::create($validate_data);
         return to_route('cours');

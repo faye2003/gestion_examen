@@ -13,3 +13,4 @@ Route::get("/", [FilieresController::class, "index"]);
 Route::post("/create", [FilieresController::class, "store"]);
 Route::get('/cours', [CoursController::class, 'index']);
 Route::post("/create_cours", [CoursController::class, "store"]);
+Route::post("/", [CoursController::class, 'store']);

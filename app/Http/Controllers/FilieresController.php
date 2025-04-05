@@ -29,9 +29,8 @@ class FilieresController extends Controller
             'description' => ['nullable', 'max:255']
         ]));
 
-        return to_route('filiere');
-        // Filiere::create($validateData);
-        // return redirect()->route('filieres.index')->with('success',"Filiere enregistrée avec succés");
+        // return to_route('filiere');
+        return redirect()->route('filiere')->with('success',"Filiere enregistrée avec succés");
     }
 
     public function edit(Filieres $filiere){
