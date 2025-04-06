@@ -15,7 +15,6 @@ class CoursController extends Controller
         return Inertia::render('cours', [
             "cours" => Cours::all()
         ]);
-        // return view("cours.index", compact("courses"));
     }
     public function store(Request $request){
         // Validation des données
@@ -24,8 +23,7 @@ class CoursController extends Controller
             'description' => ['nullable', 'max:255']
         ]);
         Cours::create($validate_data);
-        return to_route('cours');
-        // return redirect()->route('cours.index')->with('success',"Cours enregistré avec succes");
+        return Inertia::location('/cours');
     }
     // Formulaire de modification
     public function edit(Cours $course){

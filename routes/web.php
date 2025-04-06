@@ -8,7 +8,7 @@ use App\Http\Controllers\CoursController;
 Route::get('/', function () {
     return Inertia::render('auth/login');
 })->name('home');
-Route::get('/home', function () {
+Route::get('/home_list', function () {
     return Inertia::render('events/home');
 });
 
@@ -30,9 +30,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('etudiant');
 
     
-    Route::get("/filiere", [FilieresController::class, 'index'])->name("index");
+    Route::get("/filiere", [FilieresController::class, 'index']);
     Route::post("/create_filiere", [FilieresController::class, "store"]);
     Route::post("/", [CoursController::class, 'store']);
+    Route::get('/cours', [CoursController::class, 'index']);
 
 
     Route::prefix("filiere")->group(function(){

@@ -37,6 +37,8 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import { FormEventHandler } from 'react';
+import { LoaderCircle } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -45,27 +47,14 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Filiere({filiere}:any) {
-    const { errors } = usePage().props;
+type RegisterForm = {
+    designation: string;
+    description: string;
+  };
+  
 
-    const [values, setValues] = useState({
-      designation: "",
-      description: "",
-    })
-  
-    function handleChange(e:any) {
-      setValues(values => ({
-        ...values,
-        [e.target.id]: e.target.value,
-      }))
-    }
-    
-      function handleSubmit(e:any) {
-        e.preventDefault()
-        router.post('/create_filiere', values)
-        window.onloadeddata
-      }
-  
+export default function Filiere({filiere}:any) {
+   
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Filiere"/>
@@ -117,19 +106,57 @@ export default function Filiere({filiere}:any) {
         </AppLayout>
     )
 
-    function ProfileForm({ className }: React.ComponentProps<"form">) {
+    function ProfileForm() {
+        const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
+            designation: '',
+            description: '',
+        });
+        
+        const submit: FormEventHandler = (e) => {
+            e.preventDefault()
+            post('/create_filiere', {
+                onFinish: () => reset('designation', 'description'),
+            });
+        };
         return (
-        <form onSubmit={handleSubmit} className={cn("grid items-start gap-4", className)}>
-            <div className="grid gap-2">
-            <Label htmlFor="designation">Designation</Label>
-            <Input type="text" name="designation" id="designation" placeholder="Saisir une filiere" value={values.designation} onChange={handleChange} />
-            </div>
-            <div className="grid gap-2">
-            <Label htmlFor="description">Description</Label>
-            <Input type="text" name="description" id="description" placeholder="Description pour la filiere" value={values.description} onChange={handleChange} />
-            </div>
-            <Button type="submit">Save Filiere</Button>
-        </form>
+            <form className="flex flex-col gap-6" onSubmit={submit}>
+                <div className="grid gap-6">
+                    <div className="grid gap-2">
+                        <Label htmlFor="designation">Designation</Label>
+                        <Input
+                            id="designation"
+                            type="text"
+                            required
+                            autoFocus
+                            tabIndex={1}
+                            autoComplete="designation"
+                            value={data.designation}
+                            onChange={(e) => setData('designation', e.target.value)}
+                            disabled={processing}
+                            placeholder="Designaiton"
+                        />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="description">Description</Label>
+                        <Input
+                            id="description"
+                            type="text"
+                            required
+                            tabIndex={2}
+                            autoComplete="description"
+                            value={data.description}
+                            onChange={(e) => setData('description', e.target.value)}
+                            disabled={processing}
+                            placeholder="Description"
+                        />
+                    </div>
+                    <Button type="submit" className="mt-2 w-full cursor-pointer" tabIndex={5} disabled={processing}>
+                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                        Create account
+                    </Button>
+                </div>
+            </form>
         )
     }
 

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils"
 import { useMediaQuery } from '@react-hook/media-query';
+import { z } from "Zod";
 import {
   Dialog,
   DialogContent,
@@ -36,6 +37,8 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import { FormEventHandler } from 'react';
+import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
   
 
@@ -46,33 +49,65 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-
-export default function Cours() {
-  const { errors } = usePage().props;
-
-  function handleSubmit(e:any) {
-    e.preventDefault()
-    router.post('/')
-  }
+type RegisterForm = {
+  designation: string;
+  description: string;
+};
 
 
-  errors ?
-  <div className="bg-sky-400">{toast(errors.designation && <div>{errors.designation}</div>) && toast(errors.description && <div>{errors.description}</div>)}</div>
-  :null 
+export default function Cours({cours}:any) {
+  
+  function ProfileForm() {
+    const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
+      designation: '',
+      description: '',
+    });
  
-  function ProfileForm({ className }: React.ComponentProps<"form">) {
+    const submit: FormEventHandler = (e) => {
+      e.preventDefault()
+        post('/', {
+            onFinish: () => reset('designation', 'description'),
+        });
+    };
     return (
-      <form onSubmit={handleSubmit} className={cn("grid items-start gap-4", className)}>
-        <div className="grid gap-2">
-          <Label htmlFor="designation">Designation</Label>
-          <Input type="text" name="designation" id="designation" placeholder="Saisir un cours"/>
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="description">Description</Label>
-          <Input type="text" name="description" id="description" placeholder="Description pour le cours"/>
-        </div>
-        <Button type="submit">Save Cours</Button>
-      </form>
+       <form className="flex flex-col gap-6" onSubmit={submit}>
+            <div className="grid gap-6">
+                <div className="grid gap-2">
+                    <Label htmlFor="designation">Designation</Label>
+                    <Input
+                        id="designation"
+                        type="text"
+                        required
+                        autoFocus
+                        tabIndex={1}
+                        autoComplete="designation"
+                        value={data.designation}
+                        onChange={(e) => setData('designation', e.target.value)}
+                        disabled={processing}
+                        placeholder="Designaiton"
+                    />
+                </div>
+
+                <div className="grid gap-2">
+                    <Label htmlFor="description">Description</Label>
+                    <Input
+                        id="description"
+                        type="text"
+                        required
+                        tabIndex={2}
+                        autoComplete="description"
+                        value={data.description}
+                        onChange={(e) => setData('description', e.target.value)}
+                        disabled={processing}
+                        placeholder="Description"
+                    />
+                </div>
+                <Button type="submit" className="mt-2 w-full cursor-pointer" tabIndex={5} disabled={processing}>
+                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                    Create account
+                </Button>
+            </div>
+        </form>
     )
   }
 
@@ -95,12 +130,14 @@ export default function Cours() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
+                {cours.map((item:any) => 
                     <TableRow>
-                    <TableCell className="font-medium">INV001</TableCell>
-                    <TableCell>Une designation</TableCell>
-                    <TableCell>Ici une description</TableCell>
+                    <TableCell className="font-medium">{item.id}</TableCell>
+                    <TableCell>{item.designation}</TableCell>
+                    <TableCell>{item.description}</TableCell>
                     <TableCell className="text-right">edit</TableCell>
                     </TableRow>
+                )}
                 </TableBody>
             </Table>
             <Pagination className="mb-8">
