@@ -3,11 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\FilieresController;
+use App\Http\Controllers\CoursController;
+use App\Http\Controllers\EtudiantsController;
+use App\Http\Controllers\ExamensController;
 
 Route::get('/', function () {
     return Inertia::render('auth/login');
 })->name('home');
-Route::get('/home', function () {
+Route::get('/home_list', function () {
     return Inertia::render('events/home');
 });
 
@@ -29,13 +32,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('etudiant');
 
     
-    Route::get("/filiere", [FilieresController::class, 'index'])->name("index");
+    Route::get("/filiere", [FilieresController::class, 'index']);
+    Route::post("/create_filiere", [FilieresController::class, "store"]);
+    Route::post("/", [CoursController::class, 'store']);
+    Route::get('/cours', [CoursController::class, 'index']);
+    Route::get('/etudiant', [EtudiantsController::class, 'index']);
+    Route::post('/add_etudiant', [EtudiantsController::class, 'store']);
+    Route::get('/examen', [ExamensController::class, 'index']);
 
 
     Route::prefix("filiere")->group(function(){
         // Route::inertia("/filiere", "filiere");
         Route::get("/filiere", [FilieresController::class, 'index'])->name("index");
-        // Route::get("/create", [FiliereController::class, 'create'])->name("filieres.create");
         // Route::post('/', [FiliereController::class, "store"])->name('filieres.store');
         // Route::get('/{filiere}', [FiliereController::class, "edit"])->name("filieres.edit");
         // Route::put('/{id}',[FiliereController::class, "update"])->name("filieres.update");

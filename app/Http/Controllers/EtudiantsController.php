@@ -6,15 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Filieres;
 use App\Models\Etudiants;
 use PHPUnit\Framework\MockObject\Builder\Stub;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class EtudiantsController extends Controller
 {
-    // Liste des étudiants et de leurs filieres
-    public function index(){
-        $etudiants = Etudiants::with("filieres")->get();
-        //
-        return view("etudiant.index", compact("etudiants"));
-
+    public function index(): Response
+    {
+        return Inertia::render('etudiant', [
+            "filieres" => Filieres::all(),
+            "etudiants" => Etudiants::with('filieres')->get()
+        ]);
     }
     // Creation d-un étudiant
     public function create(){
@@ -27,10 +29,12 @@ class EtudiantsController extends Controller
         "nom" =>"required",
         "email" =>"required|email",
         "telephone" =>"required|min:9",
-        "filiere_id" =>"required|exists:filieres,id"
+        "date_naissance" => "required|date",
+        "filiere_id" =>"required|exists:filieres,id",
         ]);
-        Student::create($validataData);
-        return redirect()->route("etudiant.index")->with("success","Etudiant crée avec succès");
+        Etudiants::create($validataData);
+        return Inertia::location('/etudiant');
+        // return redirect()->route("etudiant.index")->with("success","Etudiant crée avec succès");
     }
     // Formulaire de modification
     public function edit(Etudiants $etudiant){
