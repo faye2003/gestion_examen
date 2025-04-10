@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\FilieresController;
 use App\Http\Controllers\CoursController;
+use App\Http\Controllers\EtudiantsController;
+use App\Http\Controllers\ExamensController;
 
 Route::get('/', function () {
     return Inertia::render('auth/login');
@@ -34,6 +36,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post("/create_filiere", [FilieresController::class, "store"]);
     Route::post("/", [CoursController::class, 'store']);
     Route::get('/cours', [CoursController::class, 'index']);
+    Route::get('/etudiant', [EtudiantsController::class, 'index']);
+    Route::post('/add_etudiant', [EtudiantsController::class, 'store']);
+    Route::get('/examen', [ExamensController::class, 'index']);
 
 
     Route::prefix("filiere")->group(function(){

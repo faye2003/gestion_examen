@@ -62,7 +62,7 @@ export default function Filiere({filiere}:any) {
             {/* Liste filières */}
             <Table 
                 className={(
-                    "mx-auto  mt-4 mb-8 max-w-lg items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
+                    "mx-auto  mt-2 mb-8 max-w-lg items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
                 )}
             >
                 <TableCaption className="caption-top">Liste des Filières</TableCaption>
@@ -169,7 +169,7 @@ export default function Filiere({filiere}:any) {
               
             <>
               <Dialog open={open} onOpenChange={setOpen}>
-                  <DialogTrigger className="ms-auto mt-8 mr-8 mb-8" asChild>
+                  <DialogTrigger className="ms-auto mt-4 mr-8 mb-4" asChild>
                   <Button className="bg-sky-500 hover:bg-sky-700 sm:max-w-[100px] cursor-pointer" variant="outline">Add Filiere</Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[425px]">

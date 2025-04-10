@@ -117,7 +117,7 @@ export default function Cours({cours}:any) {
             <DrawerDialogDemo />
             <Table 
                 className={(
-                    "m-auto mt-4 mb-8 max-w-lg items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
+                    "m-auto mt-2 mb-8 max-w-lg items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
                 )}
             >
                 <TableCaption className="caption-top">Liste de Cours</TableCaption>
@@ -140,7 +140,7 @@ export default function Cours({cours}:any) {
                 )}
                 </TableBody>
             </Table>
-            <Pagination className="mb-8">
+            <Pagination className="mb-4">
                 <PaginationContent>
                     <PaginationItem>
                     <PaginationPrevious href="#" />
@@ -156,8 +156,6 @@ export default function Cours({cours}:any) {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-
-            <SonnerDemo />
 
         </AppLayout>
     );
@@ -190,7 +188,7 @@ export default function Cours({cours}:any) {
           
         <>
           <Dialog open={open} onOpenChange={setOpen}>
-              <DialogTrigger className="ms-auto mt-8 mr-8 mb-8" asChild>
+              <DialogTrigger className="ms-auto mt-4 mr-8 mb-4" asChild>
               <Button className="bg-sky-500 hover:bg-sky-700 sm:max-w-[100px] cursor-pointer" variant="outline">Add Cours</Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">

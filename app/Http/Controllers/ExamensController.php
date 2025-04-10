@@ -7,13 +7,18 @@ use App\Models\Cours;
 use App\Models\Examens;
 use App\Models\Resultats;
 use App\Models\Etudiants;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ExamensController extends Controller
 {
      // La liste des cours
-     public function index(){
-        $examens = Examens::with("cours")->get();
-        return view("examen.index", compact("examens"));
+    public function index(): Response
+    {
+        return Inertia::render('examen', [
+            "cours" => Cours::all(),
+            "examens" => Examens::with("cours")->get()
+        ]);
     }
     // Creation de cours
     public function create(){
